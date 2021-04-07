@@ -7,12 +7,35 @@
 }
 body {
     background-image: url("images/background.jpg");
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .container {
-    width: 60%;
+    width: 1200px;
+    max-width: 65%;
     background-color:ghostwhite;
     margin: auto;
     text-align: center;
     padding: 20px;
     border-radius: 25px;
+    box-shadow: 0 0 15px 4px
+}
+.btn {
+    border: 1px solid white;
+    background-color: blue;
+    color:white;
+    border-radius: 5px;
+    padding:10px
+}
+.hide {
+    display:none
+}
+#startButton, #nextButton {
+    font-size: 1.5rem;
+    padding: 15px
+}
+.btn-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
 }
