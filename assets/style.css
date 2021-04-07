@@ -1,0 +1,18 @@
+.timer {
+    float: right;
+    padding: 10px;
+}
+.highScores {
+    padding: 10px;
+}
+body {
+    background-image: url("images/background.jpg");
+}
+.container {
+    width: 60%;
+    background-color:ghostwhite;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 25px;
+}

@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style.css">
 </head>
-<body background="assets/">
-    
+<body>
+    <!-- header containing  high scores button and timer -->
+    <header>
+        <a class="highScores" onclick="showScore()" href="#">View Highscores</a>
+        <div class="timer">Time left: 60</div>
+    </header>
+    <div class="container">
+        <h1>Timed Code Quiz</h1>
+        <p>Answer the coding questions as quickly and accurately as possible, 
+            at the end you will be able to submit your score along with your initals</p>
+            <button class="btn btn-primary" id="startButton">Start Quiz</button>
+    </div>
 </body>
 </html>
