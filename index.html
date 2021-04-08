@@ -13,7 +13,7 @@
     <!-- header containing  high scores button and timer -->
     <header>
         <a class="high-scores" onclick="showScore()" href="#">View Highscores</a>
-        <div class="timer">Time left: 60</div>
+        <div class="timer">Time left: <span id="time">0</span></div>
     </header>
     <div class="container">
         <div id="intro">
@@ -24,20 +24,16 @@
         <div id="question-container" class="hide">
             <div id="question">Question Here</div>
             <div id="answer-buttons" class="btn-grid">
-                <button type="btn" class="btn btn-primary">1</button>
-                <button type="btn" class="btn btn-primary">2</button>
-                <button type="btn" class="btn btn-primary">3</button>
-                <button type="btn" class="btn btn-primary">4</button>
+                <button type="btn" id="A" class="btn btn-primary">1</button>
+                <button type="btn" id="B" class="btn btn-primary">2</button>
+                <button type="btn" id="C" class="btn btn-primary">3</button>
+                <button type="btn" id="D" class="btn btn-primary">4</button>
             </div>
         </div>
         <div class="controls">
             <button type="btn" id="start-button" class="btn btn-primary">Start Quiz</button>
             <button type="btn" id="next-button" class="btn btn-primary hide">Next</button>
         </div>
- 
-    </div>
-    <div class="card">
-
     </div>
     <script src="assets/script.js"></script>
 </body>
