@@ -12,6 +12,7 @@ var startButton = document.getElementById("start-button")
 startButton.addEventListener("click", startQuiz)
 var varhighScore = document.getElementById("high-scores")
 var nextButton = document.getElementById("next-button")
+var answerButtons = document.getElementsByClassName("answer-button")
 var buttonA = document.getElementById("A")
 var buttonB = document.getElementById("B")
 var buttonC = document.getElementById("C")
@@ -38,16 +39,6 @@ function showQuestions() {
     buttonC.innerText = questions[index].answerC;
     buttonD.innerText = questions[index].answerD;
 }
-
-// if (answers.correct == true) {
-//     score ++
-// }
-// else {
-//     timeleft - 10
-// }
-//if (index == questions.length - 1) {
-//questionContainer.classList.add('hide)
-//} 
 var questions = [
     {
         question: "What does JS stand for?",
@@ -59,12 +50,32 @@ var questions = [
     },
     {
         question: "What tag do you use to to place JavaScript in?",
-        answers: [
-            {text: "javascript", correct: false},
-            {text: "h1", correct: false},
-            {text: "script", correct: true},
-            {text: "code", correct: false}
-        ]
+        correctAnswer: "script",
+        answerA: "javascript",
+        answerB: "h1",
+        answerC: "script",
+        answerD: "code",
     }
 ]
-console.log(questions[0])
+//check if answer is correct, if correct add to score, go to next question
+//if incorrect, do not add to score, subtract from timer, go to next question
+function isRight () {
+    if (this.innerText === questions[index].correctAnswer) {
+        score++;
+        console.log("correct");
+        index++
+        showQuestions();
+    }
+    else {
+        console.log("wrong");
+        index++;
+        showQuestions();
+    }
+}
+var answerButtons = document.getElementsByClassName('answer-button');
+
+for(var i = 0; i < answerButtons.length; i++) {
+  (function(x) {
+    answerButtons[x].addEventListener("click", isRight)
+  })(i);
+}
