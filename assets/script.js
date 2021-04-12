@@ -7,16 +7,16 @@ var index = 0;
 var scores = [];
 var secondsLeft = 60
 //timer
-function timer() {
-    setInterval(function () {
-        document.getElementById("time-left").innerText = secondsLeft;
-        secondsLeft--;
-    }, 1000)
+var timer = setInterval(startTimer, 1000) 
+function startTimer () {
+    document.getElementById("time-left").innerText = secondsLeft;
+    secondsLeft--;
     if (secondsLeft <= 0) {
-        clearInterval(timer);
-        document.getElementById("time-left").innerText = "Time's Up!"
+    clearInterval(timer);
+    document.getElementById("time-left").innerText = "Time's Up!";  
     }
 }
+
 // buttons - html and event listeners
 var startButton = document.getElementById("start-button")
 startButton.addEventListener("click", startQuiz)
@@ -43,7 +43,7 @@ function startQuiz() {
     intro.classList.add('hide')
     questionsContainer.classList.remove('hide')
     showQuestions ()
-    timer ()
+    timer
 };
 //show buttons w/answers
 function showQuestions() {
