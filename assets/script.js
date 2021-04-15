@@ -1,13 +1,9 @@
 //index tracks how many questions have been answered
 var index = 0
 //
-var storedScores = JSON.parse(localStorage.getItem("scores"))
-if (!storedScores) {
-    storedScores = []
-}
 var secondsLeft
 //timer
-timer = setInterval(startTimer, 1000)
+var timer = setInterval(startTimer, 1000)
 function startTimer () {
     document.getElementById("time-left").innerText = secondsLeft;
     secondsLeft--
@@ -90,18 +86,15 @@ function indexCheck () {
 
 }
 //show scores
+
 function showHighScores () {
-    intro.style.display = "none"
-    questionsContainer.style.display = "none"
-    quizEnd.style.display = "none"
-    highScores.style.display = "block"
     for (var i = 0; i < storedScores.length; i++) {
-        var scoreElement = document.createElement("p");
-        scoreElement.innerText = scoresFromStorage[i].initials + "recorded a score of" + scoresFromStorage[i].score;
-        scoreTable.appendChild(scoreElement)
+        highScores.innerHTML = "<h2>Scores</h2><br>"
+        var scoreListItem = document.createElement("p");
+        scoreListItem.innerText = storedScores[i].initials + " - " + storedScores[i].score;
+        highScores.appendChild(scoreListItem)
     }
 }
-
 function showEnd () {
     intro.style.display = "none"
     questionsContainer.style.display = "none"
@@ -110,15 +103,25 @@ function showEnd () {
 }
 
 //submit score
+var storedScores = []
 function submitScore () {
-    intro.display = "none"
-    questionsContainer.display = "none"
-    quizEnd.display = "none"
-    highScores.display = "block"
-    var initials = document.getElementById("user-initials")
-    localStorage.setItem(initials, score)
-    console.log(localStorage)
+    intro.style.display = "none"
+    questionsContainer.style.display = "none"
+    quizEnd.style.display = "none"
+    highScores.style.display = "block"
+    var userInitials = document.getElementById("user-initials").value
+    var userScore = score
+    var newStoredUser = {
+        initials: userInitials,
+        score: userScore
+    };
+   storedScores.push(newStoredUser);
+    //add to local storage
+    localStorage.setItem("scores", JSON.stringify(storedScores));
+    console.log("score stored!")
+    showHighScores()
 }
+
 var questions = [
     {
         question: "What does JS stand for?",
