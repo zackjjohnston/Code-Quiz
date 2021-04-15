@@ -1,23 +1,13 @@
 //index tracks how many questions have been answered
 var index = 0
-//
-var secondsLeft
 //timer
-var timer = setInterval(startTimer, 1000)
-function startTimer () {
-    document.getElementById("time-left").innerText = secondsLeft;
-    secondsLeft--
-    if (!secondsLeft) {
-    clearInterval(timer)
-    document.getElementById("time-left").innerText = "Time's Up!"
-    showEnd() 
-    }
-}
+var secondsLeft = 30
+
 // buttons - html and event listeners
 var startButton = document.getElementById("start-button")
 startButton.addEventListener("click", startQuiz)
 var viewScoresButton = document.getElementById("scores-button")
-viewScoresButton.addEventListener("click", showEnd)
+viewScoresButton.addEventListener("click", showHighScores)
 var highScoreSubmit = document.getElementById("high-score-submit")
 highScoreSubmit.addEventListener("click", submitScore)
 var answerButtons = document.getElementsByClassName("answer-button")
@@ -40,16 +30,28 @@ var quizEnd = document.getElementById("quiz-end")
 //quiz functionality
 function startQuiz() {
     score = 0
-    secondsLeft = 60
     index = 0
-    console.log("started")
     startButton.style.display = "none"
     intro.style.display = "none"
     highScores.style.display = "none"
     quizEnd.style.display = "none"
     questionsContainer.style.display = "block"
     showQuestions ()
-    timer
+    //timer functionality - set time left to 60, start
+    secondsLeft = 60
+    var timer = setInterval(startTimer, 1000)
+    function startTimer () {
+        if (secondsLeft <= 0) {
+            clearInterval(timer)
+            document.getElementById("time-left").innerText = "Time's Up!"
+            showEnd() 
+            }
+        else {
+            secondsLeft--
+            document.getElementById("time-left").innerText = secondsLeft
+        }
+    }
+
 }
 //show buttons w/answers
 function showQuestions() {
@@ -77,6 +79,7 @@ function isRight () {
     }
     if (index === questions.length) {
         showEnd()
+        clearInterval(timer)
     }
     else {
         showQuestions()
@@ -88,12 +91,17 @@ function indexCheck () {
 //show scores
 
 function showHighScores () {
-    for (var i = 0; i < storedScores.length; i++) {
-        highScores.innerHTML = "<h2>Scores</h2><br>"
+    intro.style.display = "none"
+    questionsContainer.style.display = "none"
+    quizEnd.style.display = "none"
+    highScores.style.display = "block"
+    highScores.innerHTML = "<h2>Scores</h2><br>"
+    for (var i = 0; i < storedScores.length; i++) {        
         var scoreListItem = document.createElement("p");
         scoreListItem.innerText = storedScores[i].initials + " - " + storedScores[i].score;
         highScores.appendChild(scoreListItem)
     }
+    startButton.style.display = "block"
 }
 function showEnd () {
     intro.style.display = "none"
@@ -109,12 +117,13 @@ function submitScore () {
     questionsContainer.style.display = "none"
     quizEnd.style.display = "none"
     highScores.style.display = "block"
+
     var userInitials = document.getElementById("user-initials").value
     var userScore = score
     var newStoredUser = {
         initials: userInitials,
         score: userScore
-    };
+    }
    storedScores.push(newStoredUser);
     //add to local storage
     localStorage.setItem("scores", JSON.stringify(storedScores));
