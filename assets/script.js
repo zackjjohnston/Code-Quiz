@@ -1,38 +1,34 @@
 //index tracks how many questions have been answered
-var index = 0;
+var index = 0
 //
-var storedScores = JSON.parse(localStorage.getItem("scores"));
+var storedScores = JSON.parse(localStorage.getItem("scores"))
 if (!storedScores) {
-    storedScores = [];
+    storedScores = []
 }
-var secondsLeft = 60
+var secondsLeft
 //timer
-var timer = setInterval(startTimer, 1000) 
+timer = setInterval(startTimer, 1000)
 function startTimer () {
     document.getElementById("time-left").innerText = secondsLeft;
-    secondsLeft--;
-    if (secondsLeft <= 0) {
-    clearInterval(timer);
-    document.getElementById("time-left").innerText = "Time's Up!";
-    displayScoreScreen () 
+    secondsLeft--
+    if (!secondsLeft) {
+    clearInterval(timer)
+    document.getElementById("time-left").innerText = "Time's Up!"
+    showEnd() 
     }
-}
-//function to display score screen, called by timer
-function showScoreScreen () {
-    questionsContainer.style.display = "none"
-    intro.style.display = "none"
-
 }
 // buttons - html and event listeners
 var startButton = document.getElementById("start-button")
 startButton.addEventListener("click", startQuiz)
+var viewScoresButton = document.getElementById("scores-button")
+viewScoresButton.addEventListener("click", showEnd)
 var highScoreSubmit = document.getElementById("high-score-submit")
 highScoreSubmit.addEventListener("click", submitScore)
 var answerButtons = document.getElementsByClassName("answer-button")
 for (var i = 0; i < answerButtons.length; i++) {
   (function(x) {
     answerButtons[x].addEventListener("click", isRight)
-  })(i);
+  })(i)
 }
 var buttonA = document.getElementById("A")
 var buttonB = document.getElementById("B")
@@ -48,48 +44,57 @@ var quizEnd = document.getElementById("quiz-end")
 //quiz functionality
 function startQuiz() {
     score = 0
+    secondsLeft = 60
+    index = 0
     console.log("started")
-    startButton.classList.add('hide')
-    intro.classList.add('hide')
-    questionsContainer.classList.remove('hide')
+    startButton.style.display = "none"
+    intro.style.display = "none"
+    highScores.style.display = "none"
+    quizEnd.style.display = "none"
+    questionsContainer.style.display = "block"
     showQuestions ()
     timer
-};
+}
 //show buttons w/answers
 function showQuestions() {
-    question.innerText = questions[index].question;
-    question.innerText = questions[index].question;
-    buttonA.innerText = questions[index].answerA;
-    buttonB.innerText = questions[index].answerB;
-    buttonC.innerText = questions[index].answerC;
-    buttonD.innerText = questions[index].answerD;
+    question.innerText = questions[index].question
+    question.innerText = questions[index].question
+    buttonA.innerText = questions[index].answerA
+    buttonB.innerText = questions[index].answerB
+    buttonC.innerText = questions[index].answerC
+    buttonD.innerText = questions[index].answerD
 }
 //check if answer is correct, if correct add to score, go to next question
 //if incorrect, do not add to score, subtract from timer, go to next question
 function isRight () {
-    if (questions[index] <= question.length) {
-        showEnd ();
-    }
+
     if (this.innerText === questions[index].correctAnswer) {
-        score++;
-        console.log("correct");
-        index++;
-        showQuestions();
+        score++
+        console.log("correct")
+        index++
     }
     else {
-        console.log("wrong");
-        index++;
-        secondsLeft = secondsLeft - 10;
-        document.getElementById("time-left").innerText = secondsLeft;
-        showQuestions();
+        console.log("wrong")
+        index++
+        secondsLeft = secondsLeft - 10
+        document.getElementById("time-left").innerText = secondsLeft
     }
+    if (index === questions.length) {
+        showEnd()
+    }
+    else {
+        showQuestions()
+    }
+}
+function indexCheck () {
+
 }
 //show scores
 function showHighScores () {
-    intro.display = "none"
-    questionsContainer.display = "none"
-    quizEnd.display = "none"
-    highScores.display = "block"
+    intro.style.display = "none"
+    questionsContainer.style.display = "none"
+    quizEnd.style.display = "none"
+    highScores.style.display = "block"
     for (var i = 0; i < storedScores.length; i++) {
         var scoreElement = document.createElement("p");
         scoreElement.innerText = scoresFromStorage[i].initials + "recorded a score of" + scoresFromStorage[i].score;
@@ -98,15 +103,21 @@ function showHighScores () {
 }
 
 function showEnd () {
-    intro.display = "none"
-    questionsContainer.display = "none"
-    quizEnd.display = "block"
-    highScores.display = "none"
+    intro.style.display = "none"
+    questionsContainer.style.display = "none"
+    quizEnd.style.display = "block"
+    highScores.style.display = "none"
 }
 
 //submit score
 function submitScore () {
-    var newUser = initials.value
+    intro.display = "none"
+    questionsContainer.display = "none"
+    quizEnd.display = "none"
+    highScores.display = "block"
+    var initials = document.getElementById("user-initials")
+    localStorage.setItem(initials, score)
+    console.log(localStorage)
 }
 var questions = [
     {
@@ -126,19 +137,19 @@ var questions = [
         answerD: "code",
     },
     {
-        question: "",
-        correctAnswer: "",
-        answerA: "",
-        answerB: "",
-        answerC: "",
-        answerD: "",
+        question: "Which one is bologna?",
+        correctAnswer: "Bologna",
+        answerA: "Ham",
+        answerB: "Turkey",
+        answerC: "Beef",
+        answerD: "Bologna",
     },
     {
-        question: "",
-        correctAnswer: "",
-        answerA: "",
-        answerB: "",
-        answerC: "",
-        answerD: "",
+        question: "Please be right",
+        correctAnswer: "right",
+        answerA: "right",
+        answerB: "left",
+        answerC: "wrong",
+        answerD: "no",
     }
 ]

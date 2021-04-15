@@ -12,11 +12,11 @@
 <body>
     <!-- header containing  high scores button and timer -->
     <header>
-        <a class="high-scores" onclick="showScore()" href="#">View Highscores</a>
+        <button type="btn" id="scores-button" class="btn btn-primary">View Scores</button>
         <div class="timer">Time left: <span id="time-left"></span></div>
     </header>
     <div class="container">
-        <div id="intro">
+        <div id="intro" class="">
             <h1>Timed Code Quiz</h1>
             <p>Answer the coding questions as quickly and accurately as possible, 
                 at the end you will be able to submit your score along with your initials.</p>
@@ -31,13 +31,13 @@
             </div>
         </div>
         <div id="quiz-end" class="hide">
-            <input type="text" name="initals" id="userInitials" placeholder="Your initials here"/>  
+            <input type="text" name="initals" id="user-initials" placeholder="Your initials here"/>  
         </div>
         <div id="high-scores" class="hide">
             <button type="btn" id="high-score-submit" class="btn btn-primary">Submit Score</button>
         </div>
         <button type="btn" id="start-button" class="btn btn-primary">Start Quiz</button>
-        </div>
+    </div>
     </div>
     <script src="assets/script.js"></script>
 </body>
