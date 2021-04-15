@@ -1,8 +1,23 @@
 //index tracks how many questions have been answered
 var index = 0
 //timer
-var secondsLeft = 30
-
+var secondsLeft
+var timer
+function startTimer () {
+    timer = setInterval (timerLogic, 1000)
+    secondsLeft = 60
+    function timerLogic() {
+        if (secondsLeft <= 0) {
+            document.getElementById("time-left").innerText = "Time's Up!"
+            showEnd() 
+            clearInterval(timer)
+            }
+        else {
+            secondsLeft--
+            document.getElementById("time-left").innerText = secondsLeft
+        }
+    }
+}
 // buttons - html and event listeners
 var startButton = document.getElementById("start-button")
 startButton.addEventListener("click", startQuiz)
@@ -37,21 +52,9 @@ function startQuiz() {
     quizEnd.style.display = "none"
     questionsContainer.style.display = "block"
     showQuestions ()
-    //timer functionality - set time left to 60, start
-    secondsLeft = 60
-    var timer = setInterval(startTimer, 1000)
-    function startTimer () {
-        if (secondsLeft <= 0) {
-            clearInterval(timer)
-            document.getElementById("time-left").innerText = "Time's Up!"
-            showEnd() 
-            }
-        else {
-            secondsLeft--
-            document.getElementById("time-left").innerText = secondsLeft
-        }
-    }
-
+//Ensure timer has stopped, then start new timer
+    clearInterval(timer)
+    startTimer()
 }
 //show buttons w/answers
 function showQuestions() {
@@ -68,11 +71,9 @@ function isRight () {
 
     if (this.innerText === questions[index].correctAnswer) {
         score++
-        console.log("correct")
         index++
     }
     else {
-        console.log("wrong")
         index++
         secondsLeft = secondsLeft - 10
         document.getElementById("time-left").innerText = secondsLeft
@@ -127,7 +128,6 @@ function submitScore () {
    storedScores.push(newStoredUser);
     //add to local storage
     localStorage.setItem("scores", JSON.stringify(storedScores));
-    console.log("score stored!")
     showHighScores()
 }
 
