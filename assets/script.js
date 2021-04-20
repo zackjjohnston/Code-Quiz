@@ -146,22 +146,30 @@ var questions = [
         answerA: "javascript",
         answerB: "h1",
         answerC: "script",
-        answerD: "code",
+        answerD: "code"
     },
     {
-        question: "Which one is bologna?",
-        correctAnswer: "Bologna",
-        answerA: "Ham",
-        answerB: "Turkey",
-        answerC: "Beef",
-        answerD: "Bologna",
+        question: "Javascript is a ____",
+        correctAnswer: "Programming language",
+        answerA: "Book about coffee",
+        answerB: "Indonesian dictionary",
+        answerC: "Type of screenplay",
+        answerD: "Programming language"
     },
     {
-        question: "Please be right",
-        correctAnswer: "right",
-        answerA: "right",
-        answerB: "left",
-        answerC: "wrong",
-        answerD: "no",
+        question: "What is Javascript used for?",
+        correctAnswer: "All of the above",
+        answerA: "Making buttons work",
+        answerB: "Allowing websites to provide feedback to users",
+        answerC: "Allow images and menus displayed more flexibly",
+        answerD: "All of the above"
+    },
+    {
+        question: "Do you want to answer this question correctly?",
+        correctAnswer: "Yes",
+        answerA: "Yes",
+        answerB: "No",
+        answerC: "Not really",
+        answerD: "Definitely not"
     }
 ]
